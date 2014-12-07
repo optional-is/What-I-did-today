@@ -48,7 +48,7 @@ def send_email(to_email,subject,message):
     # send the message
     smtp = SMTP()
     smtp.connect('smtp.mandrillapp.com', 587)
-    smtp.login(os.environ.get('MANDRILL_USERNAME'), os.environ.get('MANDRILL_APIKEY'))
+    smtp.login(os.environ.get('MANDRILL_USERNAME'), os.environ.get('MANDRILL_USERNAMEILL_APIKEY'))
     
     from_addr = "Tindfell <whatididtoday@tindfell.com>"
     to_addr = [to_email]
@@ -77,9 +77,24 @@ def send_email(to_email,subject,message):
     smtp.quit()
     return
 
-@app.route("/webhook", methods=['GET'])
+@app.route("/webhook", methods=['POST'])
 def webhook():
 	# Get the data from mandrill and save it into the database
+	inbound = json.loads(request.arg['mandrill_events'])
+	if inbound['event'] == u"inbound":
+		subject    = event['msg']['subject']
+		from_email = event['msg']['from_email']
+		message    = event['msg']['text']
+		
+		# Try to parse this a bit better
+		date_did = subject
+	
+		# Save the information
+		mm = Message(from_email, message, date_did)
+		db.session.add(mm)
+		db.session.commit()
+	
+		return "Success"
 	
 	return "Error"
 
@@ -106,5 +121,10 @@ def hello():
     return "Welcome to Flask!"
 
 if __name__ == "__main__":
-    port = int(os.environ.get('PORT', 5000))
-    app.run(host='0.0.0.0', port=port, debug=True)
+	# Set up logging to stdout, which ends up in Heroku logs
+	stream_handler = logging.StreamHandler()
+	stream_handler.setLevel(logging.WARNING)
+	app.logger.addHandler(stream_handler)
+
+	app.debug = True
+	app.run(host='0.0.0.0', port=flask_config.port)
