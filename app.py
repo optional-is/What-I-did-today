@@ -77,7 +77,7 @@ def send_email(to_email,subject,message):
     smtp.quit()
     return
 
-@app.route("/webhook", methods=['POST'])
+@app.route("/webhook", methods=['GET','POST'])
 def webhook():
 	# Get the data from mandrill and save it into the database
 	inbound = json.loads(request.arg['mandrill_events'])
