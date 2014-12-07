@@ -1,0 +1,7 @@
+{
+  "name": "What I did today",
+  "description": "An email reply service that tracks what you did on each day.",
+  "keywords": ["python", "flask", "time tracking", "email", "mandrill"],
+  "website": "https://github.com/optional-is/rvk-calendar-ics",
+  "repository": "https://github.com/optional-is/rvk-calendar-ics"
+}
