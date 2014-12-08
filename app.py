@@ -81,8 +81,10 @@ def send_email(to_email,subject,message):
 def webhook():
 	# Get the data from mandrill and save it into the database
 		
-	for k,v in request.data:
-		send_email("brian.suda@gmail.com","json data","%s - %s"%(k,v))
+	print request.data
+		
+	#for k,v in request.data:
+	#	send_email("brian.suda@gmail.com","json data","%s - %s"%(k,v))
 	#if 'mandrill_events' in request.data:
 	#	events = json.loads(request.data['mandrill_events'])
 	#	for inbound in events:
@@ -138,10 +140,10 @@ def hello():
 
 if __name__ == "__main__":
 	# Set up logging to stdout, which ends up in Heroku logs
-	#stream_handler = logging.StreamHandler()
-	#stream_handler.setLevel(logging.WARNING)
-	#app.logger.addHandler(stream_handler)
+	stream_handler = logging.StreamHandler()
+	stream_handler.setLevel(logging.WARNING)
+	app.logger.addHandler(stream_handler)
 
 	app.debug = True
-	#app.run(host='0.0.0.0', port=flask_config.port)
-	app.run(host='0.0.0.0', port=5000)
+	app.run(host='0.0.0.0', port=flask_config.port)
+	#app.run(host='0.0.0.0', port=5000)
