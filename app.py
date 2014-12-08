@@ -84,8 +84,9 @@ def webhook():
 	events = request.form['mandrill_events']
 	send_email("brian.suda@gmail.com","json data","TESTING1 %s"%request.form['mandrill_events'])
 	for inbound in events:
-		print "."
-	#	if inbound['event'] == u"inbound":
+		if inbound['event'] == u"inbound":
+			print "."
+	
 	#		subject    = inbound['msg']['subject']
 	#		from_email = inbound['msg']['from_email']
 	#		message    = inbound['msg']['text']
