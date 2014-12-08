@@ -80,32 +80,23 @@ def send_email(to_email,subject,message):
 @app.route("/webhook", methods=['GET','POST'])
 def webhook():
 	# Get the data from mandrill and save it into the database
-		
-	send_email("brian.suda@gmail.com","json data","TESTING %s"%request.form['mandrill_events'])
-	#for k,v in request.arg:
-	#	send_email("brian.suda@gmail.com","arg data","key %s value %s"%(k,v)))
-	#for i in request.form:
-	#	send_email("brian.suda@gmail.com","form data","key %s value %s"%(i,request.form[i])))
-	#	
-	#mandrill_data = json.loads(request.data)
-    #
-	#if 'mandrill_events' in mandrill_data:
-	#	events = mandrill_data['mandrill_events']
-	#	for inbound in events:
-	#		if inbound['event'] == u"inbound":
-	#			subject    = inbound['msg']['subject']
-	#			from_email = inbound['msg']['from_email']
-	#			message    = inbound['msg']['text']
-	#			
-	#			# Try to parse this a bit better
-	#			date_did = subject
-	#		    
-	#			# Save the information
-	#			mm = Message(from_email, message, date_did)
-	#			db.session.add(mm)
-	#			db.session.commit()
-	#		
-	#			return "Success"
+	if 'mandrill_events' in request.form:
+		events = request.form['mandrill_events']
+		for inbound in events:
+			if inbound['event'] == u"inbound":
+				subject    = inbound['msg']['subject']
+				from_email = inbound['msg']['from_email']
+				message    = inbound['msg']['text']
+				
+				# Try to parse this a bit better
+				date_did = subject
+			    
+				# Save the information
+				mm = Message(from_email, message, date_did)
+				db.session.add(mm)
+				db.session.commit()
+			
+				return "Success"
 	
 	return "Error"
 
