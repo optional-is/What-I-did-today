@@ -83,8 +83,8 @@ def webhook():
 		
 	print request.data
 		
-	#for k,v in request.data:
-	#	send_email("brian.suda@gmail.com","json data","%s - %s"%(k,v))
+	for k,v in request.data:
+		send_email("brian.suda@gmail.com","json data","%s - %s"%(k,v))
 	#if 'mandrill_events' in request.data:
 	#	events = json.loads(request.data['mandrill_events'])
 	#	for inbound in events:
