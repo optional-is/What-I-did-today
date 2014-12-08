@@ -104,7 +104,7 @@ def messages():
 	# Here we look in the database, loop through messages and display them
 
 	html = ''
-	messages = db.session.query(Messages).all()
+	messages = db.session.query(Message).all()
 	for i in messages:
 		html += '<h2>%s</h2><p>%s</p>'%(i.email,i.message)
     
@@ -134,9 +134,10 @@ def hello():
 
 if __name__ == "__main__":
 	# Set up logging to stdout, which ends up in Heroku logs
-	stream_handler = logging.StreamHandler()
-	stream_handler.setLevel(logging.WARNING)
-	app.logger.addHandler(stream_handler)
+	#stream_handler = logging.StreamHandler()
+	#stream_handler.setLevel(logging.WARNING)
+	#app.logger.addHandler(stream_handler)
 
 	app.debug = True
 	app.run(host='0.0.0.0', port=flask_config.port)
+	#app.run(host='0.0.0.0', port=5000)
