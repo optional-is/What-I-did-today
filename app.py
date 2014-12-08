@@ -82,8 +82,8 @@ def webhook():
 	# Get the data from mandrill and save it into the database
 		
 	mandrill_events = request.form['mandrill_events']
-	for inbound in mandrill_events:
-		send_email("brian.suda@gmail.com","json data","TESTING1 %s"%inbound)
+	send_email("brian.suda@gmail.com","json data","TESTING2 %s %s"%(mandrill_events,len(mandrill_events)))
+	#for inbound in mandrill_events:
 		#if inbound['event'] == u"inbound":
 		#print "."
 	    #
