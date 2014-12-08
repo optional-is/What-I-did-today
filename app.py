@@ -80,6 +80,10 @@ def send_email(to_email,subject,message):
 @app.route("/webhook", methods=['GET','POST'])
 def webhook():
 	# Get the data from mandrill and save it into the database
+	for k,v in request.data:
+		print k
+		print v
+		
 	if 'mandrill_events' in request.data:
 		inbound = json.loads(request.data['mandrill_events'])
 		if inbound['event'] == u"inbound":
@@ -99,7 +103,7 @@ def webhook():
 	
 	return "Error"
 
-@app.route("/messages")
+@app.route("/messages", methods=['GET'])
 def messages():
 	# Here we look in the database, loop through messages and display them
 
@@ -139,5 +143,5 @@ if __name__ == "__main__":
 	#app.logger.addHandler(stream_handler)
 
 	app.debug = True
-	app.run(host='0.0.0.0', port=flask_config.port)
-	#app.run(host='0.0.0.0', port=5000)
+	#app.run(host='0.0.0.0', port=flask_config.port)
+	app.run(host='0.0.0.0', port=5000)
