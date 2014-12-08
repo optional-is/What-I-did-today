@@ -13,6 +13,11 @@ db.create_all()
 
 These two commands will build the database for you.
 
+You can automatically deploy this code to Heroku by clicking the button
+[![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
+
+After which you will still need to update Mandrill & create the database tables.
+
 ## Todo
 * Improve the raw_email parsing to remove block quotes, signatures, etc.
 * Add natural language parsing

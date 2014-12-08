@@ -3,5 +3,10 @@
   "description": "An email reply service that tracks what you did on each day.",
   "keywords": ["python", "flask", "time tracking", "email", "mandrill"],
   "website": "https://github.com/optional-is/What-I-did-today",
-  "repository": "https://github.com/optional-is/What-I-did-today"
+  "repository": "https://github.com/optional-is/What-I-did-today",
+  "addons": [
+    "mandrill",
+    "heroku-postgresql",
+    "pgbackups:auto-month"
+  ]
 }
