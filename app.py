@@ -84,28 +84,28 @@ def webhook():
 	send_email("brian.suda@gmail.com","json data","TESTING")
 	for k,v in request.arg:
 		send_email("brian.suda@gmail.com","arg data","key %s value %s"%(k,v)))
-	for k,v in request.form:
-		send_email("brian.suda@gmail.com","form data","key %s value %s"%(k,v)))
-		
-	mandrill_data = json.loads(request.data)
-
-	if 'mandrill_events' in mandrill_data:
-		events = mandrill_data['mandrill_events']
-		for inbound in events:
-			if inbound['event'] == u"inbound":
-				subject    = inbound['msg']['subject']
-				from_email = inbound['msg']['from_email']
-				message    = inbound['msg']['text']
-				
-				# Try to parse this a bit better
-				date_did = subject
-			    
-				# Save the information
-				mm = Message(from_email, message, date_did)
-				db.session.add(mm)
-				db.session.commit()
-			
-				return "Success"
+	#for k,v in request.form:
+	#	send_email("brian.suda@gmail.com","form data","key %s value %s"%(k,v)))
+	#	
+	#mandrill_data = json.loads(request.data)
+    #
+	#if 'mandrill_events' in mandrill_data:
+	#	events = mandrill_data['mandrill_events']
+	#	for inbound in events:
+	#		if inbound['event'] == u"inbound":
+	#			subject    = inbound['msg']['subject']
+	#			from_email = inbound['msg']['from_email']
+	#			message    = inbound['msg']['text']
+	#			
+	#			# Try to parse this a bit better
+	#			date_did = subject
+	#		    
+	#			# Save the information
+	#			mm = Message(from_email, message, date_did)
+	#			db.session.add(mm)
+	#			db.session.commit()
+	#		
+	#			return "Success"
 	
 	return "Error"
 
