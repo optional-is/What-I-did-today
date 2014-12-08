@@ -81,9 +81,9 @@ def send_email(to_email,subject,message):
 def webhook():
 	# Get the data from mandrill and save it into the database
 		
+	send_email("brian.suda@gmail.com","json data",request.data)
 	if 'mandrill_events' in request.data:
 		events = json.loads(request.data['mandrill_events'])
-		send_email("brian.suda@gmail.com","json data",events)
 		for inbound in events:
 			if inbound['event'] == u"inbound":
 				subject    = inbound['msg']['subject']
