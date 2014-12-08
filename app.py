@@ -82,9 +82,6 @@ def webhook():
 	# Get the data from mandrill and save it into the database
 		
 	send_email("brian.suda@gmail.com","json data","TESTING %s"%request.data)
-	mandrill_data = request.get_json()
-	for k,v in mandrill_data:
-		send_email("brian.suda@gmail.com","json data","TESTING %s %s"%(k,v))
 	#for k,v in request.arg:
 	#	send_email("brian.suda@gmail.com","arg data","key %s value %s"%(k,v)))
 	#for i in request.form:
