@@ -48,7 +48,7 @@ def send_email(to_email,subject,message):
     # send the message
     smtp = SMTP()
     smtp.connect('smtp.mandrillapp.com', 587)
-    smtp.login(os.environ.get('MANDRILL_USERNAME'), os.environ.get('MANDRILL_USERNAMEILL_APIKEY'))
+    smtp.login(os.environ.get('MANDRILL_USERNAME'), os.environ.get('MANDRILL_APIKEY'))
     
     from_addr = "Tindfell <whatididtoday@tindfell.com>"
     to_addr = [to_email]
