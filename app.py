@@ -99,7 +99,18 @@ def webhook():
 	
 	return "Error"
 
+@app.route("/messages")
+def messages():
+	# Here we look in the database, loop through messages and display them
 
+	html = ''
+	messages = db.session.query(Messages).all()
+	for i in messages:
+		html += '<h2>%s</h2><p>%s</p>'%(i.email,i.message)
+    
+	return html
+    
+		
 @app.route("/ask", methods=['GET'])
 def ask():
 	# Here we look in the database, loop through users and send them an email asking what they have done today	
