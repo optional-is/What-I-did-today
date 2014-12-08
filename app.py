@@ -84,8 +84,8 @@ def webhook():
 	send_email("brian.suda@gmail.com","json data","TESTING")
 	#for k,v in request.arg:
 	#	send_email("brian.suda@gmail.com","arg data","key %s value %s"%(k,v)))
-	for k,v in request.form:
-		send_email("brian.suda@gmail.com","form data","key %s value %s"%(k,v)))
+	for i in request.form:
+		send_email("brian.suda@gmail.com","form data","key %s value %s"%(i,request.form[i])))
 	#	
 	#mandrill_data = json.loads(request.data)
     #
