@@ -80,21 +80,22 @@ def send_email(to_email,subject,message):
 @app.route("/webhook", methods=['GET','POST'])
 def webhook():
 	# Get the data from mandrill and save it into the database
-	inbound = json.loads(request.arg['mandrill_events'])
-	if inbound['event'] == u"inbound":
-		subject    = event['msg']['subject']
-		from_email = event['msg']['from_email']
-		message    = event['msg']['text']
+	if 'mandrill_events' in request.arg:
+		inbound = json.loads(request.arg['mandrill_events'])
+		if inbound['event'] == u"inbound":
+			#subject    = event['msg']['subject']
+			#from_email = event['msg']['from_email']
+			#message    = event['msg']['text']
+			#
+			## Try to parse this a bit better
+			#date_did = subject
+		    #
+			## Save the information
+			#mm = Message(from_email, message, date_did)
+			#db.session.add(mm)
+			#db.session.commit()
 		
-		# Try to parse this a bit better
-		date_did = subject
-	
-		# Save the information
-		mm = Message(from_email, message, date_did)
-		db.session.add(mm)
-		db.session.commit()
-	
-		return "Success"
+			return "Success"
 	
 	return "Error"
 
