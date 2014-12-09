@@ -157,7 +157,7 @@ def messages():
 		html += '<h2>%s</h2><p>%s</p>'%(i.email,i.message)
 		if len(i.tags) > 0:
 			html += '<ul>'
-			for j in i.tags
+			for j in i.tags:
 				html += '<li>%s</li>'%s(j.name)
 			html += '</ul>'
 			
@@ -194,5 +194,5 @@ if __name__ == "__main__":
 	manager.run()
 
 	app.debug = True
-	app.run(host='0.0.0.0', port=flask_config.port)
-	#app.run(host='0.0.0.0', port=5000)
+	#app.run(host='0.0.0.0', port=flask_config.port)
+	app.run(host='0.0.0.0', port=5000)
