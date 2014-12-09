@@ -155,6 +155,12 @@ def messages():
 	messages = db.session.query(Message).all()
 	for i in messages:
 		html += '<h2>%s</h2><p>%s</p>'%(i.email,i.message)
+		if len(i.message.tags) > 0:
+			html += '<ul>'
+			for j in i.message.tags
+				html += '<li>%s</li>'%s(j.name)
+			html += '</ul>'
+			
     
 	return html
     

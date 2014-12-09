@@ -12,6 +12,10 @@ from app import db
 
 db.create_all()
 
+Then on the shell prompt:
+
+python app.py db update
+
 These two commands will build the database for you.
 
 You can automatically deploy this code to Heroku by clicking the button
@@ -22,3 +26,4 @@ After which you will still need to update Mandrill & create the database tables.
 ## Todo
 * Improve the raw_email parsing to remove block quotes, signatures, etc.
 * Add natural language parsing
+* Get the migrations working better
