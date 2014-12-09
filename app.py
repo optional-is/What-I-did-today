@@ -191,8 +191,8 @@ if __name__ == "__main__":
 	#stream_handler = logging.StreamHandler()
 	#stream_handler.setLevel(logging.WARNING)
 	#app.logger.addHandler(stream_handler)
-	manager.run()
+	#manager.run()
 
 	app.debug = True
-	#app.run(host='0.0.0.0', port=flask_config.port)
-	app.run(host='0.0.0.0', port=5000)
+	app.run(host='0.0.0.0', port=flask_config.port)
+	#app.run(host='0.0.0.0', port=5000)
