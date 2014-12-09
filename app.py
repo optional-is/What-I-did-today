@@ -68,14 +68,14 @@ class Message(db.Model):
 
     def tag(self,tag):
 		# It should be a tag object, but if it isn't, we'll sort it out
-		if type(tag) is str:
+		if type(tag) is unicode:
 			tag = Tag(tag)
 		self.tags.append(tag)
 		return self
 
     def untag(self,tag):
 		# It should be a tag object, but if it isn't, we'll sort it out
-		if type(tag) is str:
+		if type(tag) is unicode:
 			tag = db.session.query(Tag).filter_by(name=tag)	
 		self.tags.remove(tag)
 		return self
@@ -135,9 +135,9 @@ def webhook():
 				# Save everything
 
 				# @TODO: Parse the message for tags
-				#tags = re.findall(r'#\w+', message)
-				#for i in tags:
-				#	mm.tag(i[1:])
+				tags = re.findall(r'#\w+', message)
+				for i in tags:
+					mm.tag(i[1:])
 				
 				db.session.add(mm)
 				db.session.commit()
@@ -157,7 +157,7 @@ def messages():
 		if len(i.tags) > 0:
 			html += '<ul>'
 			for j in i.tags:
-				html += '<li>%s</li>'%s(j.name)
+				html += '<li>%s</li>'%(j.name)
 			html += '</ul>'
 			
     
@@ -193,5 +193,5 @@ if __name__ == "__main__":
 	#manager.run()
 
 	app.debug = True
-	app.run(host='0.0.0.0', port=flask_config.port)
-	#app.run(host='0.0.0.0', port=5000)
+	#app.run(host='0.0.0.0', port=flask_config.port)
+	app.run(host='0.0.0.0', port=5000)
