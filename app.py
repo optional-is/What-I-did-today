@@ -140,7 +140,7 @@ def webhook():
 				# @TODO: Parse the message for tags
 				tags = re.findall(r'#\w+', message)
 				for i in tags:
-					mm.tag(i)
+					mm.tag(i[1:])
 				
 				
 		return "Success"
@@ -155,9 +155,9 @@ def messages():
 	messages = db.session.query(Message).all()
 	for i in messages:
 		html += '<h2>%s</h2><p>%s</p>'%(i.email,i.message)
-		if len(i.message.tags) > 0:
+		if len(i.tags) > 0:
 			html += '<ul>'
-			for j in i.message.tags
+			for j in i.tags
 				html += '<li>%s</li>'%s(j.name)
 			html += '</ul>'
 			
