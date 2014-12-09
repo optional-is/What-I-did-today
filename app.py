@@ -182,9 +182,9 @@ def hello():
 
 if __name__ == "__main__":
 	# Set up logging to stdout, which ends up in Heroku logs
-	stream_handler = logging.StreamHandler()
-	stream_handler.setLevel(logging.WARNING)
-	app.logger.addHandler(stream_handler)
+	#stream_handler = logging.StreamHandler()
+	#stream_handler.setLevel(logging.WARNING)
+	#app.logger.addHandler(stream_handler)
 	manager.run()
 
 	app.debug = True
