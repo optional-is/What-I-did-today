@@ -127,6 +127,10 @@ def webhook():
 				from_email = inbound['msg']['from_email']
 				message    = inbound['msg']['text']
 				
+				#remove any signatures from the email
+				signature_pos = message.find('--  ')
+				message = message[:signature_pos]
+				
 				# Try to parse this a bit better
 				date_did = subject
 				
