@@ -22,4 +22,3 @@ After which you will still need to update Mandrill & create the database tables.
 ## Todo
 * Improve the raw_email parsing to remove block quotes, signatures, etc.
 * Add natural language parsing
-* Add database migration support

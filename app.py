@@ -133,12 +133,15 @@ def webhook():
 				
 				# Save the information
 				mm = Message(from_email, message, date_did)
-				# @TODO: Parse the message for tags
-				
-				
 				# Save everything
 				db.session.add(mm)
 				db.session.commit()
+
+				# @TODO: Parse the message for tags
+				tags = re.findall(r'#\w+', message)
+				for i in tags:
+					mm.tag(i)
+				
 				
 		return "Success"
 	
