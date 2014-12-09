@@ -9,6 +9,7 @@ The service uses Mandrill, you will need to setup several things outside of this
 This is also using a postgres database to store your team members and their email responses. To setup the databases, you will need to get to a python command prompt and type:
 
 from app import db
+
 db.create_all()
 
 These two commands will build the database for you.
