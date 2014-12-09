@@ -3,6 +3,7 @@ from flask import request
 import os
 import datetime
 import json
+import re
 from smtplib import SMTP
 from cStringIO import StringIO
 from email.mime.multipart import MIMEMultipart
