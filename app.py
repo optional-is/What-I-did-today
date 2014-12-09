@@ -182,11 +182,11 @@ def hello():
 
 if __name__ == "__main__":
 	# Set up logging to stdout, which ends up in Heroku logs
-	#stream_handler = logging.StreamHandler()
-	#stream_handler.setLevel(logging.WARNING)
-	#app.logger.addHandler(stream_handler)
+	stream_handler = logging.StreamHandler()
+	stream_handler.setLevel(logging.WARNING)
+	app.logger.addHandler(stream_handler)
 	manager.run()
 
 	app.debug = True
-	#app.run(host='0.0.0.0', port=flask_config.port)
-	app.run(host='0.0.0.0', port=5000)
+	app.run(host='0.0.0.0', port=flask_config.port)
+	#app.run(host='0.0.0.0', port=5000)
