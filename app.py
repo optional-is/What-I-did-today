@@ -70,8 +70,6 @@ class Message(db.Model):
 		# It should be a tag object, but if it isn't, we'll sort it out
 		if type(tag) is str:
 			tag = Tag(tag)
-			#db.session.add(tag)
-			#db.session.commit()
 		self.tags.append(tag)
 		return self
 
@@ -135,14 +133,14 @@ def webhook():
 				# Save the information
 				mm = Message(from_email, message, date_did)
 				# Save everything
-				db.session.add(mm)
-				db.session.commit()
 
 				# @TODO: Parse the message for tags
 				tags = re.findall(r'#\w+', message)
 				for i in tags:
 					mm.tag(i[1:])
 				
+				db.session.add(mm)
+				db.session.commit()
 				
 		return "Success"
 	
