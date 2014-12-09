@@ -12,10 +12,16 @@ from email import Charset
 from email.generator import Generator
 
 from flask.ext.sqlalchemy import SQLAlchemy
+from flask.ext.script import Manager
+from flask.ext.migrate import Migrate, MigrateCommand
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
 db = SQLAlchemy(app)
+migrate = Migrate(app, db)
+
+manager = Manager(app)
+manager.add_command('db', MigrateCommand)
 
 class Member(db.Model):
     id    = db.Column(db.Integer, primary_key=True)
@@ -27,14 +33,29 @@ class Member(db.Model):
         self.email = email
 
     def __repr__(self):
-        return '<id {}>'.format(self.id)
+        return '<name {}>'.format(self.name)
 
+tags = db.Table('tags',
+    db.Column('tag_id',     db.Integer, db.ForeignKey('tag.id')),
+    db.Column('message_id', db.Integer, db.ForeignKey('message.id'))
+)
+		
+class Tag(db.Model):
+    id       = db.Column(db.Integer, primary_key=True)
+    name     = db.Column(db.String())
 
+    def __init__(self, name):
+        self.name = name
+
+    def __repr__(self):
+        return '<name {}>'.format(self.name)
+		
 class Message(db.Model):
     id       = db.Column(db.Integer, primary_key=True)
     email    = db.Column(db.String())
     message  = db.Column(db.String())
     date_did = db.Column(db.String())
+    tags     = db.relationship('Tag', secondary=tags, backref=db.backref('messages', lazy='dynamic'))
 
     def __init__(self, email, message, date_did):
         self.message  = message
@@ -43,6 +64,24 @@ class Message(db.Model):
 
     def __repr__(self):
         return '<id {}>'.format(self.id)
+
+    def tag(self,tag):
+		# It should be a tag object, but if it isn't, we'll sort it out
+		if type(tag) is str:
+			tag = Tag(tag)
+			db.session.add(tag)
+			db.session.commit()
+		self.tags.append(tag)
+		return self
+
+    def untag(self,tag):
+		# It should be a tag object, but if it isn't, we'll sort it out
+		if type(tag) is str:
+			tag = db.session.query(Tag).filter_by(name=tag)	
+		self.tags.remove(tag)
+		return self
+
+
 
 def send_email(to_email,subject,message):
     # send the message
@@ -94,6 +133,10 @@ def webhook():
 				
 				# Save the information
 				mm = Message(from_email, message, date_did)
+				# @TODO: Parse the message for tags
+				
+				
+				# Save everything
 				db.session.add(mm)
 				db.session.commit()
 				
@@ -136,10 +179,11 @@ def hello():
 
 if __name__ == "__main__":
 	# Set up logging to stdout, which ends up in Heroku logs
-	stream_handler = logging.StreamHandler()
-	stream_handler.setLevel(logging.WARNING)
-	app.logger.addHandler(stream_handler)
+	#stream_handler = logging.StreamHandler()
+	#stream_handler.setLevel(logging.WARNING)
+	#app.logger.addHandler(stream_handler)
+	manager.run()
 
 	app.debug = True
-	app.run(host='0.0.0.0', port=flask_config.port)
-	#app.run(host='0.0.0.0', port=5000)
+	#app.run(host='0.0.0.0', port=flask_config.port)
+	app.run(host='0.0.0.0', port=5000)
