@@ -70,8 +70,8 @@ class Message(db.Model):
 		# It should be a tag object, but if it isn't, we'll sort it out
 		if type(tag) is str:
 			tag = Tag(tag)
-			db.session.add(tag)
-			db.session.commit()
+			#db.session.add(tag)
+			#db.session.commit()
 		self.tags.append(tag)
 		return self
 
